@@ -1,0 +1,44 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: lagou-service-email
+    # nacos配置
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        server-addr: 127.0.0.1:8848
+        group: DEFAULT_GROUP
+        file-extension: yaml
+  main:
+    allow-bean-definition-overriding: true
+dubbo:
+  scan:
+    base-packages: com.lagou.edu.service.impl
+  protocol:
+    name: dubbo
+    port: -1
+    host: 127.0.0.1
+  registry:
+    address:  spring-cloud://localhost
+  cloud:
+    subscribed-services: lagou-service-email
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+#mail:
+  #host: smtp.gmail.com
+  #username: hw test
+  #password:  hwemailtest
+  #port: 465
+  #from: hwemailtest2021@gmail.com
+  main:
+    allow-bean-definition-overriding: true
+

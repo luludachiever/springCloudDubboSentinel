@@ -1,0 +1,23 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: lagou-cloud-gateway
+  cloud:
+    gateway:
+      nacos:
+        discovery:
+          # 集群中各节点信息都配置在这里（域名-VIP-绑定映射到各个实例的地址信息）
+          server-addr: 127.0.0.1:8848
+      routes:
+        - id: service-code-router
+          uri: lb://lagou-service-code
+          predicates:
+            - Path=/code/**
+        - id: service-user-router
+          uri: lb://lagou-service-user
+          predicates:
+            - Path=/user/**
+      httpclient:
+        connect-timeout: 5000
+        response-timeout: 20000
